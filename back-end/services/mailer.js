@@ -12,6 +12,31 @@ function createTransport(account) {
   });
 }
 
+function createGmailTransport() {
+  var auth = {
+    type: "oauth2",
+    user: "nthungdev@gmail.com",
+    clientId:
+      "497572789098-8kter34kprbr3q07tmmdnkc8t1jmoels.apps.googleusercontent.com",
+    clientSecret: "rVX-RYGvSEc2U19n0w4Rik4r",
+    refreshToken: "1/9avBnEwLXP1LJ7Do852c6nF27uXVcHhdClJyi9KogIQ"
+  };
+
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "OAuth2",
+      user: "user@example.com",
+      serviceClient: "113600000000000000000",
+      privateKey: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...",
+      accessToken: "ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x",
+      expires: 1484314697598
+    }
+  });
+}
+
 export async function sendMail(from, to) {
   const testAccount = await nodemailer.createTestAccount();
   const transporter = createTransport(testAccount);
