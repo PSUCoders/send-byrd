@@ -1,5 +1,8 @@
 const nodemailer = require("nodemailer");
 
+const GMAIL_USERNAME = "psucoders@gmail.com";
+const GMAIL_PASSWORD = "Plattsburgh#1";
+
 function createTransport(account) {
   return nodemailer.createTransport({
     host: "smtp.ethereal.email",
@@ -13,15 +16,6 @@ function createTransport(account) {
 }
 
 function createGmailTransport() {
-  var auth = {
-    type: "oauth2",
-    user: "nthungdev@gmail.com",
-    clientId:
-      "497572789098-8kter34kprbr3q07tmmdnkc8t1jmoels.apps.googleusercontent.com",
-    clientSecret: "rVX-RYGvSEc2U19n0w4Rik4r",
-    refreshToken: "1/9avBnEwLXP1LJ7Do852c6nF27uXVcHhdClJyi9KogIQ"
-  };
-
   return nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -37,21 +31,38 @@ function createGmailTransport() {
   });
 }
 
-export async function sendMail(from, to) {
-  const testAccount = await nodemailer.createTestAccount();
-  const transporter = createTransport(testAccount);
+export async function sendMail(body) {
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: GMAIL_USERNAME, // generated ethereal user
+      pass: GMAIL_PASSWORD // generated ethereal password
+    }
+  });
+
+  console.log("here");
 
   const info = await transporter
     .sendMail({
-      from: from || '"Fred Foo 👻" <foo@example.com>', // sender address
-      to: to || "bar@example.com, baz@example.com", // list of receivers
+      from: `"Coding Hub 👻" <${GMAIL_USERNAME}>`, // sender address
+      to: "nthungdev@gmail.com", // list of receivers
       subject: "Hello ✔", // Subject line
       text: "Hello world?", // plain text body
-      html: "<h1>Hello world?</h1>" // html body
+      html: body || "<h1>Hello world?</h1>" // html body
     })
     .catch(err => console.error(err));
 
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+  console.log("here");
 
   return info;
 }
