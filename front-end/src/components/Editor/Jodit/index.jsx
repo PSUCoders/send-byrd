@@ -1,34 +1,36 @@
 import React, { Component } from "react";
-
-import "jodit";
 import "jodit/build/jodit.min.css";
 import JoditEditor from "jodit-react";
 
-class Jodit extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			content: "content"
-		};
-	}
+class CustomEditor extends Component {
+	state = {
+		content: "content"
+	};
 
-	updateContent(value) {
+	updateContent = value => {
 		this.setState({ content: value });
-	}
+	};
+
+	/**
+	 * @property Jodit jodit instance of native Jodit
+	 */
+	jodit;
+	setRef = jodit => (this.jodit = jodit);
+
+	config = {
+		readonly: false // all options from https://xdsoft.net/jodit/doc/
+	};
 
 	render() {
 		return (
 			<JoditEditor
+				editorRef={this.setRef}
 				value={this.state.content}
-				config={{
-					readonly: false, // all options from https://xdsoft.net/jodit/play.html\
-					height: "100vh",
-					direction: "ltr"
-				}}
-				onChange={this.updateContent.bind(this)}
+				config={this.config}
+				onChange={this.updateContent}
 			/>
 		);
 	}
 }
 
-export default Jodit;
+export default CustomEditor;
