@@ -4,7 +4,7 @@ import JoditEditor from "jodit-react";
 
 class CustomEditor extends Component {
 	state = {
-		content: "content"
+		content: ""
 	};
 
 	updateContent = value => {
@@ -18,7 +18,10 @@ class CustomEditor extends Component {
 	setRef = jodit => (this.jodit = jodit);
 
 	config = {
-		readonly: false // all options from https://xdsoft.net/jodit/doc/
+		readonly: false, // all options from https://xdsoft.net/jodit/doc/
+		height: "100vh",
+		width: "1000px",
+		maxWidth: "1000px"
 	};
 
 	render() {

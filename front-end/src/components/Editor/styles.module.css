@@ -1,5 +1,6 @@
 .container {
 	display: flex;
+	margin: 0 5em;
 }
 
 .left-container {
@@ -9,10 +10,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-items: flex-start;
-	background-color: #fbfbfb;
 }
 
 .right-container {
-	flex-grow: 4;
 	height: 100%;
 }
