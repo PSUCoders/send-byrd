@@ -15,3 +15,10 @@
 .right-container {
 	height: 100%;
 }
+
+.templates {
+	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+	grid-gap: 2rem;
+}
