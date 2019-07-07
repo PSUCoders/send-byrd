@@ -3,6 +3,7 @@ var path = require("path");
 
 var indexRouter = require("./routes/index");
 var mailRouter = require("./routes/mail");
+var authenticationRouter = require("./routes/authentication");
 
 var app = express();
 
@@ -12,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.multipart());
 
 // Resolve CORS
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -23,5 +24,6 @@ app.use(function(req, res, next) {
 
 app.use("/", indexRouter);
 app.use("/mail", mailRouter);
+app.use("/authentication", authenticationRouter);
 
 module.exports = app;
