@@ -6,7 +6,6 @@
   "hosting": {
     "public": "public",
     "rewrites": [
-      { "source": "helloWorld", "function": "helloWorld" },
       { "source": "api{,/**}", "function": "main" }
     ],
     "ignore": ["firebase.json", "**/node_modules/**"]

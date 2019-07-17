@@ -3,7 +3,6 @@ var path = require("path");
 
 var indexRouter = require("./routes/index");
 var mailRouter = require("./routes/mail");
-var authenticationRouter = require("./routes/authentication");
 
 var app = express();
 
@@ -24,6 +23,5 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/mail", mailRouter);
-app.use("/authentication", authenticationRouter);
 
 module.exports = app;
