@@ -3,6 +3,7 @@ var path = require("path");
 
 var indexRouter = require("./routes/index");
 var mailRouter = require("./routes/mail");
+var memberRouter = require("./routes/member");
 
 var app = express();
 
@@ -23,5 +24,6 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/mail", mailRouter);
+app.use("/member", memberRouter);
 
 module.exports = app;
