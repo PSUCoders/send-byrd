@@ -4,7 +4,9 @@ const { sendMail } = require("../../services/mailer");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-router.use(bodyParser.text());
+router.use(bodyParser.text({
+  type: ['text', 'text/plain', 'text/html']
+}));
 
 router.post("/", bodyParser.text(), async (req, res) => {
   if (!isValidRequest(req)) {
@@ -45,7 +47,8 @@ const isValidRequest = request => {
     !request.headers.email ||
     !request.headers.password ||
     !request.query.subject ||
-    !request.query.receivers
+    !request.query.receivers ||
+    typeof request.body !== 'string'
   ) {
     return false;
   }
